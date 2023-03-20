@@ -5,8 +5,9 @@ services:
   app:
     build: 
       context: node
-    container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    container_name: node
+    image: blarth/node-mysql-nginx
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh node index.js
     networks: 
       - node-network
     volumes: 
@@ -16,6 +17,16 @@ services:
       - "3000:3000"
     depends_on: 
        - db
+  nginx:
+    build: 
+      context: nginx
+      dockerfile: Dockerfile
+    image: blarth/nginx
+    container_name: nginx
+    networks: 
+      - node-network
+    ports: 
+      - "8080:80"
 
   db:
     image: mysql:5.7
