@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt-get update && apt-get install -y wget
-RUN npm i
+
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -15,3 +15,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 EXPOSE 3000
 
 ENTRYPOINT ["node","index.js"]
+
